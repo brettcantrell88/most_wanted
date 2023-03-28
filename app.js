@@ -73,7 +73,11 @@ function mainMenu(person, people) {
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
             let personFamily = findPersonFamily(person[0], people);
-            alert(personFamily);
+            let personSpouse = findSpouse(person[0], people);
+            let personSibling = findSiblings(person[0], people);
+            displayRelation(personFamily);
+            displaySpouseRelation(personSpouse);
+            displaySiblingRelation(personSibling);
             break;
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
@@ -88,10 +92,15 @@ function mainMenu(person, people) {
         case "quit":
             // Stop application execution
             return;
+        case "test":
+            // Write any single tests you want
+            let result = alert(person[0])
+            break;
         default:
             // Prompt user again. Another instance of recursion
             return mainMenu(person, people);
     }
+
 }
 // End of mainMenu()
 
@@ -140,6 +149,12 @@ function displayPeople(people) {
 function displayPerson(person) {
     let personInfo = `First Name: ${person.firstName}\n`;
     personInfo += `Last Name: ${person.lastName}\n`;
+    personInfo += `Gender: ${person.gender}\n`;
+    personInfo += `dob: ${person.dob}\n`;
+    personInfo += `Height: ${person.height}\n`;
+    personInfo += `Weight: ${person.weight}\n`;
+    personInfo += `Eye Color: ${person.eyeColor}\n`;
+    personInfo += `Occupation: ${person.occupation}\n`;
     //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
     alert(personInfo);
 }
@@ -185,10 +200,40 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
-function findPersonFamily(one,all) {
-    let parents = all.filter(function(el) {
-        if (one.parents[0] === el.id || one.parents[1] === el.id) {
-            return true;
-        } else return false;
-    });
+function findPersonFamily(singlePerson, allPeople){
+    let parentArray = allPeople.filter(el => singlePerson.parents.includes(el.id));
+    return parentArray
+}
+
+function displayRelation(personFamily) {
+    let parentRelation = `Parent 1: ${personFamily[0].firstName} ${personFamily[0].lastName}`||`\nParent 2: ${personFamily[1].firstName} ${personFamily[1].lastName}`;
+    alert(parentRelation);
+}
+
+function findSpouse(singlePerson, allPeople){
+    let spouseArray = allPeople.filter(el => singlePerson.currentSpouse === el.id);
+    return spouseArray
+}
+
+function displaySpouseRelation(person){
+    let spouseRelation = `Spouse: ${person[0].firstName} ${person[0].lastName}`;
+    alert(spouseRelation);
+}
+
+function findSiblings(singlePerson, allPeople){
+    let siblingArray = allPeople.filter(el => singlePerson.parents === el.id);
+    return siblingArray
+}
+
+function displaySiblingRelation(person) {
+    let siblingRelation = `Sibling(s): ${person[0].firstName} ${person[0].lastName}\n${person[1].firstName} ${person[1].lastName}\n${person[2].firstName} ${person[2].lastName}`
+    alert(siblingRelation);
+}
+
+function findPersonDescendants(singlePerson, allPeople){
+    let descendants = allPeople.filter(function(el){
+        if (el.parents.includes(singlePerson.id)){
+            return descendants
+        }
+    })
 }
