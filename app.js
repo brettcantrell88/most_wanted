@@ -184,3 +184,11 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+
+function findPersonFamily(one,all) {
+    let parents = all.filter(function(el) {
+        if (one.parents[0] === el.id || one.parents[1] === el.id) {
+            return true;
+        } else return false;
+    });
+}
