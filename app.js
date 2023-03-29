@@ -79,13 +79,13 @@ function mainMenu(person, people) {
       displaySpouseRelation(personSpouse);
       displaySiblingRelation(personSibling);
       break;
-      case "descendants":
-          //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
-          // HINT: Review recursion lecture + demo for bonus user story
-          let personDescendants = findPersonDescendants(person[0], people);
-          displayPeople(personDescendants)
-        //   displayPersonDescendants(personDescendants);
-    //   alert(personDescendants);
+    case "descendants":
+      //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
+      // HINT: Review recursion lecture + demo for bonus user story
+      let personDescendants = findPersonDescendants(person[0], people);
+      displayPeople(personDescendants);
+      //   displayPersonDescendants(personDescendants);
+      //   alert(personDescendants);
       break;
     case "restart":
       // Restart app() from the very beginning
@@ -96,10 +96,10 @@ function mainMenu(person, people) {
       return;
     case "test":
       // Write any single tests you want
-      
-      let personSiblingTest = findSiblings(person[0], people)
-      let result = displayFamilyRelations(personSiblingTest, "sibling")
-      console.log(result)
+
+      let personSiblingTest = findSiblings(person[0], people);
+      let result = displayFamilyRelations(personSiblingTest, "sibling");
+      console.log(result);
       break;
     default:
       // Prompt user again. Another instance of recursion
@@ -204,21 +204,24 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
-function findPersonFamily(singlePerson, allPeople){
-    let parentArray = allPeople.filter(el => singlePerson.parents.includes(el.id));
-    return parentArray
+function findPersonFamily(singlePerson, allPeople) {
+  let parentArray = allPeople.filter((el) =>
+    singlePerson.parents.includes(el.id)
+  );
+  return parentArray;
 }
 function findPersonParents(singlePerson, allPeople) {
   let parentArray = allPeople.filter((el) =>
-    singlePerson.parents.includes(el.id));
-    return parentArray;
+    singlePerson.parents.includes(el.id)
+  );
+  return parentArray;
 }
 
 function displayParents(personFamily) {
   let familyRelation = "";
   personFamily.map((el, i) => {
     if (personFamily.length > 0) {
-      familyRelation += `parent ${i+1}: ${el.firstName} ${el.lastName}\n`;
+      familyRelation += `parent ${i + 1}: ${el.firstName} ${el.lastName}\n`;
     } else {
       familyRelation = `No parents`;
     }
@@ -242,7 +245,12 @@ function displaySpouseRelation(person) {
 }
 
 function findSiblings(singlePerson, allPeople) {
-  let siblingArray = allPeople.filter((el) => el.id != singlePerson.id && (singlePerson.parents.includes(el.parents[0]) || singlePerson.parents.includes(el.parents[1])));
+  let siblingArray = allPeople.filter(
+    (el) =>
+      el.id != singlePerson.id &&
+      (singlePerson.parents.includes(el.parents[0]) ||
+        singlePerson.parents.includes(el.parents[1]))
+  );
   return siblingArray;
 }
 
@@ -263,10 +271,10 @@ function findPersonDescendants(singlePerson, allPeople) {
   return descendants;
 }
 
-function displayPersonDescendants(person){
-    let descendantRelation = 
-        `Descendant(s): ${person[0].firstname} ${person[0].lastname}` ||
-        `\n${person[1].firstName} ${person[1].lastName}` ||
-        `\n${person[2].firstName} ${person[2].lastName}`;
-    alert(descendantRelation);
+function displayPersonDescendants(person) {
+  let descendantRelation =
+    `Descendant(s): ${person[0].firstname} ${person[0].lastname}` ||
+    `\n${person[1].firstName} ${person[1].lastName}` ||
+    `\n${person[2].firstName} ${person[2].lastName}`;
+  alert(descendantRelation);
 }
